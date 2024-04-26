@@ -1,135 +1,23 @@
 //Productos
-const productos = [
-    // Audi
-    {
-        id: "Audi 01",
-        titulo: "Audi 01",
-        imagen: "./img/Audi/01.jpg",
-        categoria: {
-            nombre: "Audi",
-            id: "audi"
-        },
-        precio: 1000
-    },
-    {
-        id: "Audi-02",
-        titulo: "Audi 02",
-        imagen: "./img/Audi/02.webp",
-        categoria: {
-            nombre: "Audi",
-            id: "audi"
-        },
-        precio: 1000
-    },
-    {
-        id: "Audi-03",
-        titulo: "Audi 03",
-        imagen: "./img/Audi/03.jpg",
-        categoria: {
-            nombre: "Audi",
-            id: "audi"
-        },
-        precio: 1000
-    },
-    {
-        id: "Audi-04",
-        titulo: "Audi 04",
-        imagen: "./img/Audi/04.jpg",
-        categoria: {
-            nombre: "Audi",
-            id: "audi"
-        },
-        precio: 1000
-    },
-    // Ferrari
-    {
-        id: "Ferrari-01",
-        titulo: "Ferrari 01",
-        imagen: "./img/Ferrari/01.avif",
-        categoria: {
-            nombre: "Ferrari",
-            id: "ferrari"
-        },
-        precio: 1000
-    },
-    {
-        id: "Ferrari-02",
-        titulo: "Ferrari 02",
-        imagen: "./img/Ferrari/02.webp",
-        categoria: {
-            nombre: "Ferrari",
-            id: "ferrari"
-        },
-        precio: 1000
-    },
-    {
-        id: "Ferrari-03",
-        titulo: "Ferrari 03",
-        imagen: "./img/Ferrari/03.jpg",
-        categoria: {
-            nombre: "Ferrari",
-            id: "ferrari"
-        },
-        precio: 1000
-    },
-    {
-        id: "Ferrari-04",
-        titulo: "Ferrari 04",
-        imagen: "./img/Ferrari/04.webp",
-        categoria: {
-            nombre: "Ferrari",
-            id: "ferrari"
-        },
-        precio: 1000
-    },
-    // Pagani
-    {
-        id: "pagani-01",
-        titulo: "Pagani 01",
-        imagen: "./img/Pagani/01.jpg",
-        categoria: {
-            nombre: "Pagani",
-            id: "pagani"
-        },
-        precio: 1000
-    },
-    {
-        id: "pagani-02",
-        titulo: "Pagani 02",
-        imagen: "./img/Pagani/02.jpg",
-        categoria: {
-            nombre: "Pagani",
-            id: "pagani"
-        },
-        precio: 1000
-    },
-    {
-        id: "pagani-03",
-        titulo: "Pagani 03",
-        imagen: "./img/Pagani/03.jpg",
-        categoria: {
-            nombre: "Pagani",
-            id: "pagani"
-        },
-        precio: 1000
-    },
-    {
-        id: "pagani-04",
-        titulo: "Pagani 04",
-        imagen: "./img/Pagani/04.jpg",
-        categoria: {
-            nombre: "Pagani",
-            id: "pagani"
-        },
-        precio: 1000
-    },
-];
+let productos = []
+
+fetch("./Js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+    })
+    
 
 const contenedorProductos = document.querySelector('#contenedor-productos')
 const botonesCategorias = document.querySelectorAll('.button-select')
 const tituloPrincipal = document.querySelector('#titulo-principal')
 let botonesAgregar = document.querySelectorAll(".sumar-carrito")
 const numero = document.querySelector('#numero')
+
+botonesCategorias.forEach(boton => boton.addEventListener("click", () => {
+    aside.classList.remove("aside-visible");
+}))
 
 function cargarProductos(productosElegidos) {
 
@@ -188,7 +76,7 @@ function actualizarBotonesAgregar() {
     });
 }
 
-let productosEnCarrito;
+let productosEnCarrito = [];
 
 let productosEnCarritoLS = localStorage.getItem('productos-en-carrito');
 
@@ -201,6 +89,27 @@ if (productosEnCarritoLS) {
 }
 
 function agregarAlCarrito(e) {
+
+    Toastify({
+        text: "Producto agregado",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #4b33a8, #785ce9)",
+            borderRadius: "2rem",
+            textTransform: "uppercase",
+            fontSize: ".75rem"
+        },
+        offset: {
+            x: '1.5rem',
+            y: '1.5rem'
+            },
+        onClick: function(){}
+        }).showToast();
+
 
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find(producto => producto.id === idBoton);

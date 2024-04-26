@@ -22,7 +22,12 @@ a {
     text-decoration: none;
 }
 
-.wrapper {
+.wrapper1 {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color: var(--clr-main) ;
+}
+.wrapper2 {
     display: grid;
     grid-template-columns: 1fr 4fr;
     background-color: var(--clr-main) ;
